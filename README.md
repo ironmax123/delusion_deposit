@@ -1,16 +1,33 @@
-# delusion_deposit
+# 妄想貯金
+## 仕様
+    1. 基本の外食の食費を設定してもらう
+    2. 外食したときだけボタンを押す 
+    3. 一週間ずつ貯金されていく
+    4. 外食したときに入力
+## 画面構成
+1. ホーム 
+    - 現在の貯金額
+    - 期限
+    - 目標金額
+    - 目標までの期限
+    - 達成おめでとう
+    - 使用金額入力ボタン => Bottom_Sheet
 
-A new Flutter project.
+2. 目標入力画面
+    - 達成目標の入力
+    - 目標金額の入力
+    - 期限の入力（yy/mm/dd）
+    ### 要件
+    - 目標がない場合、目標設定画面へ遷移
+    - 目標は最初に決めたら変えれない
+    - 達成したら、目標及び履歴を消す
 
-## Getting Started
+3. 基準入力画面
+    - 基準の設定（週いくら外食で使うか）
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. 外食の履歴画面
+    - リストで日付と金額が表示される
+## フレームワーク
+<p style="display: inline">
+  <img src="https://img.shields.io/badge/-Flutter-000000.svg?logo=flutter&style=for-the-badge">
+</p>
