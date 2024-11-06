@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       children: [
                         Align(
-                          alignment: Alignment.centerLeft, // 左詰め
+                          alignment: Alignment.centerLeft,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(8, 8, 0, 0),
                             child: Text(
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         Align(
-                          alignment: Alignment.centerRight, // 右詰め
+                          alignment: Alignment.centerRight,
                           child: Padding(
                             padding: EdgeInsets.only(right: 8),
                             child: Text(
