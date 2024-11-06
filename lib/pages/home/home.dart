@@ -1,3 +1,4 @@
+import 'package:delusion_deposit/pages/dining-out_list/duing-out.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,11 +9,19 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title), // Text(title)の前のconstは不要です
+        title: Text(title),
       ),
       body: Center(
-        child: Text(title),
-      ),
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Duing_out(),
+                  ),
+                );
+              },
+              child: const Text('テスト用'))),
     );
   }
 }
