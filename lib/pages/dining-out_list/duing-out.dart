@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'dart:convert';
@@ -9,36 +8,33 @@ class Duing_out extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ロードされたデータを管理するフック
-    final loadedData = useState<Map<String, int>>({});
+    final loadedData = useState<List<Map<String, dynamic>>>([]); // データをListに変更
 
-    // データのロードを行う非同期関数
     Future<void> loadSavedData() async {
       final prefs = await SharedPreferences.getInstance();
       final String? savedData = prefs.getString('saved_data');
+      debugPrint('読み込んだデータ: $savedData');
 
       if (savedData != null) {
-        // 保存されたデータをデコードして Map に変換
         List<dynamic> items = jsonDecode(savedData);
-        Map<String, int> data = {};
+        List<Map<String, dynamic>> data = [];
 
-        // 各項目を日付と金額で分類
         for (var item in items) {
-          String date = item['date']; // yy/mm/dd 形式の日付
-          int price = item['price'];
-
-          // データを直接日付をキーにして保存
-          data[date] = price;
+          data.add({
+            'date': item['date'],
+            'price': item['price'],
+          });
         }
 
-        // ロードしたデータを更新
         loadedData.value = data;
-        debugPrint('読み込み：${loadedData.value}');
+        debugPrint('読み込み完了: ${loadedData.value}');
+      } else {
+        debugPrint('データが存在しません');
       }
     }
 
-    // 初回レンダリング時にデータをロード
     useEffect(() {
+      debugPrint("データ読み込みを開始します");
       loadSavedData();
       return null;
     }, []);
@@ -54,9 +50,8 @@ class Duing_out extends HookWidget {
             child: ListView.builder(
               itemCount: loadedData.value.length,
               itemBuilder: (context, index) {
-                // ロードされたデータから日付と金額を取得
-                String date = loadedData.value.keys.elementAt(index);
-                int price = loadedData.value[date] ?? 0;
+                String date = loadedData.value[index]['date'];
+                int price = loadedData.value[index]['price'];
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(
