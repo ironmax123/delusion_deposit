@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:delusion_deposit/test/test_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,17 +93,6 @@ class TargetInput extends HookWidget {
               await saveTarget();
             },
             child: const Text('保存'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TestTarget(),
-                ),
-              );
-            },
-            child: const Text('テスト用'),
           ),
         ],
       ),
