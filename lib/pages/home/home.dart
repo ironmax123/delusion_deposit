@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           centerTitle: true,
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color.fromARGB(255, 176, 224, 230),
         ),
         body: Center(
           child: Column(
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: const ColoredBox(
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: const ColoredBox(
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
               ),
               TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color.fromARGB(255, 176, 224, 230),
                   foregroundColor: Colors.black,
                   fixedSize: const Size(240, 80),
                 ),
