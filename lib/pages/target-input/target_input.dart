@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:delusion_deposit/test/test_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,7 @@ class TargetInput extends HookWidget {
       final prefs = await SharedPreferences.getInstance();
 
       // 既存の保存データを取得してリストに変換
-      String? savedData = prefs.getString('saved_courses');
+      String? savedData = prefs.getString('saved_data');
       List<dynamic> courses = savedData != null ? jsonDecode(savedData) : [];
 
       // 新しいデータを作成
@@ -40,6 +41,7 @@ class TargetInput extends HookWidget {
     Future<void> deleteAllData() async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('saved_data');
+      await prefs.remove('saved_out');
       debugPrint('全データが削除されました');
     }
 
@@ -76,6 +78,16 @@ class TargetInput extends HookWidget {
             },
             child: const Text('保存'),
           ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TestTarget(),
+                  ),
+                );
+              },
+              child: const Text('テスト用'))
         ],
       ),
     );
