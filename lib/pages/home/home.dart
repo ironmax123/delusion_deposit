@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
           title: const Text(
             '妄想貯金箱',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           centerTitle: true,
@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
                               child: Text(
                                 '貯金額',
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -46,6 +47,7 @@ class HomePage extends StatelessWidget {
                             child: Text(
                               '10000円',
                               style: TextStyle(
+                                color: Colors.black,
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -58,6 +60,7 @@ class HomePage extends StatelessWidget {
                               child: Text(
                                 'あと99990000円',
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -84,6 +87,7 @@ class HomePage extends StatelessWidget {
                           Text(
                             '目標',
                             style: TextStyle(
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -95,6 +99,7 @@ class HomePage extends StatelessWidget {
                                 Text(
                                   '11/2',
                                   style: TextStyle(
+                                    color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -102,6 +107,7 @@ class HomePage extends StatelessWidget {
                                 Text(
                                   'までに',
                                   style: TextStyle(
+                                    color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -109,6 +115,7 @@ class HomePage extends StatelessWidget {
                                 Text(
                                   '沖縄の別荘',
                                   style: TextStyle(
+                                    color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -119,6 +126,7 @@ class HomePage extends StatelessWidget {
                           Text(
                             '1000000000円',
                             style: TextStyle(
+                              color: Colors.black,
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
                             ),
@@ -132,13 +140,14 @@ class HomePage extends StatelessWidget {
               TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 176, 224, 230),
-                  foregroundColor: Colors.black,
+                  foregroundColor: Colors.white,
                   fixedSize: const Size(240, 80),
                 ),
                 onPressed: () {},
                 child: const Text(
                   '外食履歴遷移',
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -148,9 +157,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // アクションを記述
-          },
+          onPressed: () {},
           child: const Icon(Icons.add),
         ),
       );
