@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
           title: const Text(
             '妄想貯金箱',
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           centerTitle: true,
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(8, 8, 0, 0),
+                              padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
                               child: Text(
                                 '貯金額',
                                 style: TextStyle(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                             child: Text(
                               '10000円',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFFFF8C00),
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -56,14 +56,26 @@ class HomePage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: Text(
-                                'あと99990000円',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              padding: EdgeInsets.only(left: 160),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'あと',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '99990000円',
+                                    style: TextStyle(
+                                      color: Color(0xFF2F5C8A),
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -93,40 +105,20 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: [
-                                Text(
-                                  '11/2',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'までに',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  '沖縄の別荘',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            padding: EdgeInsets.only(left: 16),
+                            child: Text(
+                              '11/2までに沖縄の別荘',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Text(
                             '1000000000円',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color(0xFF2F5C8A),
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
                             ),
@@ -137,18 +129,19 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 10,
                   backgroundColor: const Color.fromARGB(255, 176, 224, 230),
                   foregroundColor: Colors.white,
                   fixedSize: const Size(240, 80),
                 ),
                 onPressed: () {},
                 child: const Text(
-                  '外食履歴遷移',
+                  '外食履歴を見る',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 30,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -158,6 +151,7 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
+          backgroundColor: const Color.fromARGB(255, 176, 224, 230),
           child: const Icon(Icons.add),
         ),
       );
