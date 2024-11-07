@@ -89,7 +89,7 @@ class TargetInput extends HookWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.blue[200],
-              labelText: '目標を入力してください',
+              labelText: '貯金の目的を入力してください',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide.none,
@@ -108,7 +108,7 @@ class TargetInput extends HookWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.blue[200],
-              labelText: '金額を入力してください',
+              labelText: '目標金額を入力してください',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide.none,
