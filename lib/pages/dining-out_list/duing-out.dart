@@ -12,7 +12,7 @@ class Duing_out extends HookWidget {
 
     Future<void> loadSavedData() async {
       final prefs = await SharedPreferences.getInstance();
-      final String? savedData = prefs.getString('saved_data');
+      final String? savedData = prefs.getString('saved_out');
       debugPrint('読み込んだデータ: $savedData');
 
       if (savedData != null) {
