@@ -1,0 +1,9 @@
+showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 250 + MediaQuery.of(context).viewInsets.bottom,
+                        child: const AddDiningOut(),
+                      );
+                    },
+                  );
