@@ -1,3 +1,5 @@
+import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
+import 'package:delusion_deposit/pages/home/add_diningout.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -136,7 +138,14 @@ class HomePage extends StatelessWidget {
                   foregroundColor: Colors.white,
                   fixedSize: const Size(240, 80),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DuingOut(),
+                    ),
+                  );
+                },
                 child: const Text(
                   '外食履歴を見る',
                   style: TextStyle(
@@ -150,7 +159,17 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: 250 + MediaQuery.of(context).viewInsets.bottom,
+                  child: const AddDiningOut(),
+                );
+              },
+            );
+          },
           backgroundColor: const Color.fromARGB(255, 176, 224, 230),
           child: const Icon(Icons.add),
         ),
