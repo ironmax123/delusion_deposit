@@ -123,6 +123,13 @@ class TargetInput extends HookWidget {
             onPressed: () async {
               await deleteAllData();
               await saveTarget();
+              // 画面推移
+              /*Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ,
+                ),
+              );*/
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF000000),
@@ -130,7 +137,7 @@ class TargetInput extends HookWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text('保存',
+            child: const Text('次へ',
                 style: TextStyle(color: Color(0xFFB0E0F6), fontSize: 15)),
           ),
         ],
