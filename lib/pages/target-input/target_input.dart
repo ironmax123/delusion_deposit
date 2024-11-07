@@ -12,6 +12,8 @@ class TargetInput extends HookWidget {
     final textFieldValue = useState<int>(0);
     final targetText = useState<String>('');
     final selectedDate = useState<DateTime>(DateTime.now());
+    final textFieldController = useTextEditingController();
+    final targetFieldController = useTextEditingController();
 
     // データを保存する関数
     Future<void> saveTarget() async {
@@ -36,6 +38,10 @@ class TargetInput extends HookWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
+      textFieldController.clear();
+      targetFieldController.clear();
+      textFieldValue.value = 0;
+      targetText.value = '';
     }
 
     // 日付選択ダイアログを表示する関数
@@ -85,6 +91,7 @@ class TargetInput extends HookWidget {
             ),
           ),
           TextField(
+            controller: textFieldController,
             onChanged: (value) => targetText.value = value,
             decoration: InputDecoration(
               filled: true,
@@ -102,6 +109,7 @@ class TargetInput extends HookWidget {
             height: 16,
           ),
           TextField(
+            controller: targetFieldController,
             onChanged: (value) =>
                 textFieldValue.value = int.tryParse(value) ?? 0,
             keyboardType: TextInputType.number,
