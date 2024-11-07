@@ -147,5 +147,11 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // アクションを記述
+          },
+          child: const Icon(Icons.add),
+        ),
       );
 }
