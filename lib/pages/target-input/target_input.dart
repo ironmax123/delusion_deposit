@@ -32,15 +32,13 @@ class TargetInput extends HookWidget {
       courses.add(courseData);
       await prefs.setString('saved_data', jsonEncode(courses));
       debugPrint("保存したデータ: ${jsonEncode(courses)}");
-
-      // 保存完了メッセージ
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
     }
 
     // 日付選択ダイアログを表示する関数
-    Future<void> _selectDate(BuildContext context) async {
+    Future<void> selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
@@ -64,35 +62,76 @@ class TargetInput extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('目標入力'),
+        backgroundColor: const Color(0xFFB0E0E6),
       ),
       body: Column(
         children: [
           Text(
-              '選択した日付: ${selectedDate.value.year}/${selectedDate.value.month}/${selectedDate.value.day}'),
+            '選択した日付: \n ${selectedDate.value.year}/${selectedDate.value.month}/${selectedDate.value.day}',
+            style: const TextStyle(fontSize: 30),
+          ),
           ElevatedButton(
-            onPressed: () => _selectDate(context),
-            child: const Text('日付選択'),
+            onPressed: () => selectDate(context),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFB0E0F6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              '日付選択',
+              style: TextStyle(color: Color(0xFF000000), fontSize: 15),
+            ),
           ),
           TextField(
             onChanged: (value) => targetText.value = value,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.blue[200],
               labelText: '目標を入力してください',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
             ),
+          ),
+          const SizedBox(
+            height: 16,
           ),
           TextField(
             onChanged: (value) =>
                 textFieldValue.value = int.tryParse(value) ?? 0,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.blue[200],
               labelText: '金額を入力してください',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
             ),
+          ),
+          const SizedBox(
+            height: 16,
           ),
           ElevatedButton(
             onPressed: () async {
               await deleteAllData();
               await saveTarget();
             },
-            child: const Text('保存'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF000000),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text('保存',
+                style: TextStyle(color: Color(0xFFB0E0F6), fontSize: 15)),
           ),
         ],
       ),
