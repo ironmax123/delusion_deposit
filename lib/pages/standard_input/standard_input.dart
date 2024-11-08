@@ -60,21 +60,6 @@ class StandardInput extends HookWidget {
       ),
       body: Column(
         children: [
-          TextField(
-            controller: textFieldController,
-            onChanged: (value) => standardText.value = value,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.blue[200],
-              labelText: '貯金の目的を入力してください',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
-            ),
-          ),
           const SizedBox(
             height: 16,
           ),
