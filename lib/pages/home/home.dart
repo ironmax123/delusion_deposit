@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       loadIntDeposit += loadInt;
       savedeposit(context, loadIntDeposit, 'deposit');
       loadIntTarget -= loadIntDeposit;
-      savedeposit(context, loadIntDeposit, 'difference');
+      savedeposit(context, loadIntTarget, 'difference');
     });
   }
 

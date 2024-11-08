@@ -41,6 +41,9 @@ class TargetInput extends HookWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
+      // ignore: use_build_context_synchronously
+      await savedeposit(context, textFieldValue.value, 'difference');
+
       textFieldController.clear();
       targetFieldController.clear();
       textFieldValue.value = 0;
@@ -66,6 +69,7 @@ class TargetInput extends HookWidget {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('saved_data');
       await prefs.remove('saved_out');
+      await prefs.remove('deposit_data');
       debugPrint('全データが削除されました');
     }
 
@@ -135,8 +139,6 @@ class TargetInput extends HookWidget {
             onPressed: () async {
               await deleteAllData();
               await saveTarget();
-              // ignore: use_build_context_synchronously
-              await savedeposit(context, textFieldValue.value, 'difference');
               // TODO：頻度入力へ変更
               Navigator.push(
                 // ignore: use_build_context_synchronously

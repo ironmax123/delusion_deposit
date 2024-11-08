@@ -22,14 +22,16 @@ class Deposit {
       }
       if (targetStr == 'standard') {
         standardData = data;
+        debugPrint('読み込み完了: $standardData');
       } else if (targetStr == 'deposit') {
         depositData = data;
+        debugPrint('読み込み完了: $depositData');
       } else if (targetStr == 'difference') {
         targetData = data;
+        debugPrint('読み込み完了: $targetData');
       } else {
         debugPrint('データが存在しません!!');
       }
-      debugPrint('読み込み完了: $standardData');
     } else {
       debugPrint('データが存在しません');
     }
@@ -51,7 +53,7 @@ class Deposit {
 
   int get loadIntTarget {
     if (depositData.isNotEmpty && targetData[0]['difference_price'] is int) {
-      return depositData[0]['difference_price'];
+      return targetData[0]['difference_price'];
     }
     return 0;
   }
