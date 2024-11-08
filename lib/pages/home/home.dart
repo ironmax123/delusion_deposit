@@ -1,3 +1,4 @@
+import 'package:delusion_deposit/mock_data/mock_deposit.dart';
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
 import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
@@ -52,6 +53,9 @@ class _HomePageState extends State<HomePage> {
       loadIntDeposit += loadInt;
       savedeposit(context, loadIntDeposit, 'deposit');
       loadIntTarget -= loadIntDeposit;
+      if (loadIntTarget <= 0) {
+        loadIntTarget = 0;
+      }
       savedeposit(context, loadIntTarget, 'difference');
     });
   }
@@ -193,6 +197,7 @@ class _HomePageState extends State<HomePage> {
                   fixedSize: const Size(240, 80),
                 ),
                 onPressed: () {
+                  mockStandard();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
