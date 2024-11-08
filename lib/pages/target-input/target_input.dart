@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home/deposit/save_deposit.dart';
+
 class TargetInput extends HookWidget {
   const TargetInput({super.key});
 
@@ -35,6 +37,7 @@ class TargetInput extends HookWidget {
       courses.add(courseData);
       await prefs.setString('saved_data', jsonEncode(courses));
       debugPrint("保存したデータ: ${jsonEncode(courses)}");
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
@@ -132,8 +135,11 @@ class TargetInput extends HookWidget {
             onPressed: () async {
               await deleteAllData();
               await saveTarget();
+              // ignore: use_build_context_synchronously
+              await savedeposit(context, textFieldValue.value, 'difference');
               // TODO：頻度入力へ変更
               Navigator.push(
+                // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(
                   builder: (context) => const HomePage(),

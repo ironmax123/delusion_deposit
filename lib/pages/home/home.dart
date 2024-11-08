@@ -1,8 +1,9 @@
-import 'package:delusion_deposit/mock_data/mock_deposit.dart';
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
-import 'package:delusion_deposit/pages/home/add_diningout.dart';
-import 'package:delusion_deposit/pages/home/deposit.dart';
+import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
+import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
+import 'package:delusion_deposit/pages/target-input/target_input.dart';
 import 'package:flutter/material.dart';
+import 'deposit/save_deposit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Deposit deposit;
   List<Map<String, dynamic>> savedData = [];
-  int loadInt = 0;
+  List<Map<String, dynamic>> savedDataDeposit = [];
+  List<Map<String, dynamic>> savedDataTarget = [];
+  int loadInt = 0, loadIntDeposit = 0, loadIntTarget = 0;
   @override
   void initState() {
     super.initState();
@@ -23,14 +26,36 @@ class _HomePageState extends State<HomePage> {
 
   void loadingDeposit() async {
     deposit = Deposit();
-    await deposit.loadSavedData();
-    savedData = deposit.loadedData;
+    await deposit.dataLoading("standard");
+    savedData = deposit.standardData;
+
+    await deposit.dataLoading("deposit");
+    savedDataDeposit = deposit.depositData;
+
+    await deposit.dataLoading("difference");
+    savedDataTarget = deposit.targetData;
 
     setState(() {
+      //基準と保存された貯金額を設定
       loadInt = deposit.loadInt;
-      print("データ:$loadInt");
+      loadIntDeposit = deposit.loadIntDeposit;
+      double result = loadInt / 3;
+      loadInt = result.round();
+      //保存された目標との差額
+      loadIntTarget = deposit.loadIntTarget;
     });
   }
+
+  void addDeposit() async {
+    setState(() {
+      loadIntDeposit += loadInt;
+      savedeposit(context, loadIntDeposit, 'deposit');
+      loadIntTarget -= loadIntDeposit;
+      savedeposit(context, loadIntDeposit, 'difference');
+    });
+  }
+
+  void loadTarget() {}
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -74,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Align(
                             child: Text(
-                              '$loadInt円',
+                              '$loadIntDeposit円',
                               //'${deposit.loadedData}円',
                               style: const TextStyle(
                                 color: Color(0xFFFF8C00),
@@ -83,13 +108,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: EdgeInsets.only(left: 160),
+                              padding: const EdgeInsets.only(left: 160),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'あと',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -98,8 +123,8 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Text(
-                                    '99990000円',
-                                    style: TextStyle(
+                                    '$loadIntTarget円',
+                                    style: const TextStyle(
                                       color: Color(0xFF2F5C8A),
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
@@ -173,7 +198,6 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => const DuingOut(),
                     ),
                   );
-                  mockDeposit();
                 },
                 child: const Text(
                   '外食履歴を見る',
@@ -184,6 +208,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              ElevatedButton(
+                  onPressed: () {
+                    addDeposit();
+                  },
+                  child: const Text('追加')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TargetInput(),
+                      ),
+                    );
+                  },
+                  child: const Text('目標入力'))
             ],
           ),
         ),
