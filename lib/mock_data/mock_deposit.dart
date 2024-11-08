@@ -9,7 +9,7 @@ Future<void> mockDeposit() async {
     'saved_deposit',
     jsonEncode([
       {
-        "deposit": "1000",
+        "deposit": 1000,
       } //毎週の使用金額
     ]),
   );

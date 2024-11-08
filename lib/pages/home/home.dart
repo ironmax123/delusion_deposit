@@ -1,9 +1,36 @@
+import 'package:delusion_deposit/mock_data/mock_deposit.dart';
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/add_diningout.dart';
+import 'package:delusion_deposit/pages/home/deposit.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Deposit deposit;
+  List<Map<String, dynamic>> savedData = [];
+  int loadInt = 0;
+  @override
+  void initState() {
+    super.initState();
+    loadingDeposit();
+  }
+
+  void loadingDeposit() async {
+    deposit = Deposit();
+    await deposit.loadSavedData();
+    savedData = deposit.loadedData;
+
+    setState(() {
+      loadInt = deposit.loadInt;
+      print("データ:$loadInt");
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,14 +51,14 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: const ColoredBox(
-                    color: Color.fromARGB(255, 176, 224, 230),
+                  child: ColoredBox(
+                    color: const Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
                       child: Column(
                         children: [
-                          Align(
+                          const Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
@@ -47,15 +74,16 @@ class HomePage extends StatelessWidget {
                           ),
                           Align(
                             child: Text(
-                              '10000円',
-                              style: TextStyle(
+                              '$loadInt円',
+                              //'${deposit.loadedData}円',
+                              style: const TextStyle(
                                 color: Color(0xFFFF8C00),
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding: EdgeInsets.only(left: 160),
@@ -145,6 +173,7 @@ class HomePage extends StatelessWidget {
                       builder: (context) => const DuingOut(),
                     ),
                   );
+                  mockDeposit();
                 },
                 child: const Text(
                   '外食履歴を見る',
