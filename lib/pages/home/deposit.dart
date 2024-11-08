@@ -7,7 +7,7 @@ class Deposit {
 
   Future<void> loadSavedData() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? savedData = prefs.getString('saved_deposit');
+    final String? savedData = prefs.getString('standard_data');
     debugPrint('読み込んだデータ: $savedData');
 
     if (savedData != null) {
@@ -16,7 +16,7 @@ class Deposit {
 
       for (var item in items) {
         data.add({
-          'deposit': item['deposit'],
+          'standard_price': item['standard_price'],
         });
       }
 
@@ -28,8 +28,8 @@ class Deposit {
   }
 
   int get loadInt {
-    if (loadedData.isNotEmpty && loadedData[0]['deposit'] is int) {
-      return loadedData[0]['deposit'];
+    if (loadedData.isNotEmpty && loadedData[0]['standard_price'] is int) {
+      return loadedData[0]['standard_price'];
     }
     return 0;
   }
