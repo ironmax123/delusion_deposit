@@ -4,9 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> savedeposit(
     BuildContext context, int depositNum, String targetStr) async {
-  if (targetStr == 'difference') {
-    await deleteData(targetStr);
-  } else if (targetStr == 'deposit') {
+  if (targetStr == 'deposit') {
     await deleteData(targetStr);
   }
   await deleteData(targetStr);

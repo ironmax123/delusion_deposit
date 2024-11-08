@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
       double result = loadInt / 3;
       loadInt = result.round();
       //保存された目標との差額
+      print('${deposit.loadIntTarget}円');
       loadIntTarget = deposit.loadIntTarget;
     });
   }
