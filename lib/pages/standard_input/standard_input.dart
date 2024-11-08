@@ -9,47 +9,39 @@ class StandardInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textFieldValue = useState<int>(0);
-    final standardText = useState<String>('');
-    final selectedDate = useState<DateTime>(DateTime.now());
+    final textFieldValue = useState(0);
     final textFieldController = useTextEditingController();
-    final standardFieldController = useTextEditingController();
 
     // データを保存する関数
     Future<void> saveStandard() async {
       final prefs = await SharedPreferences.getInstance();
 
       // 既存の保存データを取得してリストに変換
-      String? savedData = prefs.getString('saved_data');
+      String? savedData = prefs.getString('standard_data');
       List<dynamic> courses = savedData != null ? jsonDecode(savedData) : [];
 
       // 新しいデータを作成
       final courseData = {
-        'standard_date':
-            "${selectedDate.value.year}-${selectedDate.value.month.toString().padLeft(2, '0')}-${selectedDate.value.day.toString().padLeft(2, '0')}", // 目標の日付
-        'target_price': textFieldValue.value, // 入力された数値
-        'standard': standardText.value, // 目的入力
+        'standard_price': textFieldValue.value, // 入力された数値
       };
 
       // 新しいデータを追加して保存
       courses.add(courseData);
-      await prefs.setString('saved_data', jsonEncode(courses));
+      await prefs.setString('standard_data', jsonEncode(courses));
       debugPrint("保存したデータ: ${jsonEncode(courses)}");
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
       textFieldController.clear();
-      standardFieldController.clear();
+
       textFieldValue.value = 0;
-      standardText.value = '';
     }
 
     // 全データを削除する関数
     Future<void> deleteAllData() async {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('saved_data');
-      await prefs.remove('saved_out');
+      await prefs.remove('standard_data');
       debugPrint('全データが削除されました');
     }
 
@@ -64,7 +56,6 @@ class StandardInput extends HookWidget {
             height: 16,
           ),
           TextField(
-            controller: standardFieldController,
             onChanged: (value) =>
                 textFieldValue.value = int.tryParse(value) ?? 0,
             keyboardType: TextInputType.number,
