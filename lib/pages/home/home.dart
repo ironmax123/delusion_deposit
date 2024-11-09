@@ -3,7 +3,6 @@ import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
 import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
 import 'package:delusion_deposit/pages/target-input/target_input.dart';
-import 'package:delusion_deposit/pages/home/add_diningout.dart';
 import 'package:delusion_deposit/pages/home/show-save.dart';
 import 'package:flutter/material.dart';
 import 'deposit/save_deposit.dart';
