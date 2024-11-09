@@ -98,10 +98,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void addDeposit() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    int currentPrice = prefs.getInt('addhistory_price') ?? 0;
     setState(() {
-      loadIntDeposit += loadInt;
+      loadIntDeposit += loadInt * currentPrice;
       savedeposit(context, loadIntDeposit, 'deposit');
-      loadIntTarget -= loadIntDeposit;
+      loadIntTarget -= loadIntDeposit * currentPrice;
       if (loadIntTarget <= 0) {
         loadIntTarget = 0;
         _showNoTargetDialog();
@@ -128,6 +131,7 @@ class _HomePageState extends State<HomePage> {
       addDeposit();
       _hasRunToday = true;
       await saveRunStatus(true); // フラグを true にして保存
+      removeAddHistoryPrice();
     }
 
     // 月曜日から土曜日の場合はフラグをリセット
