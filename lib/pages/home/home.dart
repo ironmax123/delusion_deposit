@@ -1,9 +1,39 @@
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/add_diningout.dart';
+import 'package:delusion_deposit/pages/home/show-save.dart';
+import 'package:delusion_deposit/pages/target-input/target_input.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late ShowSave showsave;
+  String date = ''; // 初期値を空文字に設定
+  String target = ''; // targetの初期値も設定
+  int TargetPrice = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    showsave = ShowSave();
+    // データの読み込みを開始
+    showsave.loadSavedData().then((_) {
+      // データが読み込まれたら、UIを更新
+      if (showsave.loadedData.isNotEmpty) {
+        setState(() {
+          // 最初のアイテムのtarget_dateを取得
+          date = showsave.loadedData[0]['target_date'] ?? '不明な日付';
+          target = showsave.loadedData[0]['target'] ?? '不明な目標';
+          TargetPrice = showsave.loadedData[0]['target_price'];
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,14 +54,14 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: const ColoredBox(
-                    color: Color.fromARGB(255, 176, 224, 230),
+                  child: ColoredBox(
+                    color: const Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
                       child: Column(
                         children: [
-                          Align(
+                          const Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
@@ -48,7 +78,8 @@ class HomePage extends StatelessWidget {
                           Align(
                             child: Text(
                               '10000円',
-                              style: TextStyle(
+                              //'${deposit.loadedData}円',
+                              style: const TextStyle(
                                 color: Color(0xFFFF8C00),
                                 fontSize: 50,
                                 fontWeight: FontWeight.bold,
@@ -58,10 +89,10 @@ class HomePage extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: EdgeInsets.only(left: 160),
+                              padding: const EdgeInsets.only(left: 160),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'あと',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -70,8 +101,8 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '99990000円',
-                                    style: TextStyle(
+                                    '10000円',
+                                    style: const TextStyle(
                                       color: Color(0xFF2F5C8A),
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
@@ -91,14 +122,17 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: const ColoredBox(
-                    color: Color.fromARGB(255, 176, 224, 230),
+                  child: ColoredBox(
+                    color: const Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
                       child: Column(
                         children: [
-                          Text(
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
                             '目標',
                             style: TextStyle(
                               color: Colors.black,
@@ -107,21 +141,21 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 16),
+                            padding: const EdgeInsets.only(left: 16),
                             child: Text(
-                              '11/2までに沖縄の別荘',
-                              style: TextStyle(
+                              '$dateまでに$target',
+                              style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 30,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Text(
-                            '1000000000円',
-                            style: TextStyle(
+                            '$TargetPrice円',
+                            style: const TextStyle(
                               color: Color(0xFF2F5C8A),
-                              fontSize: 50,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -155,6 +189,17 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              ElevatedButton(onPressed: () {}, child: const Text('追加')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TargetInput(),
+                      ),
+                    );
+                  },
+                  child: const Text('目標入力'))
             ],
           ),
         ),
