@@ -78,8 +78,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void loadTarget() {}
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -188,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16),
                             child: Text(
-                              '$dateまでに$target',
+                              '$dateまでに\n$target',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 24,
@@ -249,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: const Text('目標入力'))
+                  child: const Text('目標入力')),
             ],
           ),
         ),

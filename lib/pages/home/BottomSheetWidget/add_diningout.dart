@@ -59,16 +59,25 @@ class AddDiningOut extends HookWidget {
             ),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: saveCourseInfo,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFB0E0F6),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const FlutterLogo(size: 32),
+              const SizedBox(
+                width: 24,
               ),
-            ),
-            child: const Text('データを保存',
-                style: TextStyle(color: Color(0xFF000000), fontSize: 15)),
+              ElevatedButton(
+                onPressed: saveCourseInfo,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFB0E0F6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text('データを保存',
+                    style: TextStyle(color: Color(0xFF000000), fontSize: 15)),
+              ),
+            ],
           ),
         ],
       ),

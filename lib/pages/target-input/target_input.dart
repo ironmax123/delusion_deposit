@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:delusion_deposit/pages/home/home.dart';
 import 'package:delusion_deposit/pages/standard_input/standard_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -29,7 +28,7 @@ class TargetInput extends HookWidget {
       // 新しいデータを作成
       final courseData = {
         'target_date':
-            "${selectedDate.value.year}-${selectedDate.value.month.toString().padLeft(2, '0')}-${selectedDate.value.day.toString().padLeft(2, '0')}", // 目標の日付
+            "${selectedDate.value.month.toString().padLeft(2, '0')}/${selectedDate.value.day.toString().padLeft(2, '0')}", // 目標の日付
         'target_price': textFieldValue.value, // 入力された数値
         'target': targetText.value, // 目的入力
       };
