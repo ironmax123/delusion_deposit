@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../deposit/save_deposit.dart';
+
 class AddDiningOut extends HookWidget {
   const AddDiningOut({super.key});
 
@@ -36,6 +38,10 @@ class AddDiningOut extends HookWidget {
       textFieldValue.value = 0;
     }
 
+    Future<void> addDataInt() async {
+      await savedeposit(context, 1, 'addhistory');
+    }
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -59,16 +65,25 @@ class AddDiningOut extends HookWidget {
             ),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: saveCourseInfo,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFB0E0F6),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const FlutterLogo(size: 32),
+              const SizedBox(
+                width: 24,
               ),
-            ),
-            child: const Text('データを保存',
-                style: TextStyle(color: Color(0xFF000000), fontSize: 15)),
+              ElevatedButton(
+                onPressed: saveCourseInfo,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFB0E0F6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text('データを保存',
+                    style: TextStyle(color: Color(0xFF000000), fontSize: 15)),
+              ),
+            ],
           ),
         ],
       ),

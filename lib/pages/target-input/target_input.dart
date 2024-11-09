@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:delusion_deposit/pages/home/home.dart';
 import 'package:delusion_deposit/pages/standard_input/standard_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../home/deposit/save_deposit.dart';
 
 class TargetInput extends HookWidget {
   const TargetInput({super.key});
@@ -27,7 +28,7 @@ class TargetInput extends HookWidget {
       // 新しいデータを作成
       final courseData = {
         'target_date':
-            "${selectedDate.value.year}-${selectedDate.value.month.toString().padLeft(2, '0')}-${selectedDate.value.day.toString().padLeft(2, '0')}", // 目標の日付
+            "${selectedDate.value.month.toString().padLeft(2, '0')}/${selectedDate.value.day.toString().padLeft(2, '0')}", // 目標の日付
         'target_price': textFieldValue.value, // 入力された数値
         'target': targetText.value, // 目的入力
       };
@@ -36,9 +37,13 @@ class TargetInput extends HookWidget {
       courses.add(courseData);
       await prefs.setString('saved_data', jsonEncode(courses));
       debugPrint("保存したデータ: ${jsonEncode(courses)}");
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('情報が保存されました')),
       );
+      // ignore: use_build_context_synchronously
+      await savedeposit(context, textFieldValue.value, 'difference');
+
       textFieldController.clear();
       targetFieldController.clear();
       textFieldValue.value = 0;
@@ -64,6 +69,8 @@ class TargetInput extends HookWidget {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('saved_data');
       await prefs.remove('saved_out');
+      await prefs.remove('deposit_data');
+      await prefs.remove('difference_data');
       debugPrint('全データが削除されました');
     }
 
@@ -71,6 +78,7 @@ class TargetInput extends HookWidget {
       appBar: AppBar(
         title: const Text('目標入力'),
         backgroundColor: const Color(0xFFB0E0E6),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
