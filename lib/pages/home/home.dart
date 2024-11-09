@@ -1,11 +1,11 @@
 import 'package:delusion_deposit/mock_data/mock_deposit.dart';
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
-import 'package:delusion_deposit/pages/home/NowWeekday.dart';
 import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
 import 'package:delusion_deposit/pages/target-input/target_input.dart';
 import 'package:delusion_deposit/pages/home/show-save.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'deposit/save_deposit.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,21 +16,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Nowweekday dayInt = Nowweekday();
   late Deposit deposit;
   List<Map<String, dynamic>> savedData = [];
   List<Map<String, dynamic>> savedDataDeposit = [];
   List<Map<String, dynamic>> savedDataTarget = [];
   int loadInt = 0, loadIntDeposit = 0, loadIntTarget = 0;
   late ShowSave showsave;
-  String date = ''; // 初期値を空文字に設定
-  String target = ''; // targetの初期値も設定
+  String date = '';
+  String target = '';
+
+  bool _hasRunToday = false;
 
   int TargetPrice = 0;
   @override
   void initState() {
     super.initState();
     loadingDeposit();
+    checkAndRunDeposit();
+    loadRunStatus();
     showsave = ShowSave();
     // データの読み込みを開始
     showsave.loadSavedData().then((_) {
@@ -72,7 +75,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void loadingDeposit() async {
-    dayInt.nowDate();
     deposit = Deposit();
     await deposit.dataLoading("standard");
     savedData = deposit.standardData;
@@ -108,9 +110,31 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void nowDate() {
+  Future<void> loadRunStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    _hasRunToday = prefs.getBool('hasRunToday') ?? false; // フラグの読み込み
+  }
+
+  Future<void> saveRunStatus(bool status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasRunToday', status); // フラグの保存
+  }
+
+  void checkAndRunDeposit() async {
     DateTime now = DateTime.now();
-    int weekday = now.weekday;
+
+    // 日曜日かどうかチェックし、_hasRunToday が false の場合のみ実行
+    if (now.weekday == 7 && !_hasRunToday) {
+      addDeposit();
+      _hasRunToday = true;
+      await saveRunStatus(true); // フラグを true にして保存
+    }
+
+    // 月曜日から土曜日の場合はフラグをリセット
+    if (now.weekday != 7) {
+      _hasRunToday = false;
+      await saveRunStatus(false); // フラグを false にして保存
+    }
   }
 
   @override

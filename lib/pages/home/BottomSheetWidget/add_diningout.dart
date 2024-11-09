@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../deposit/save_deposit.dart';
+
 class AddDiningOut extends HookWidget {
   const AddDiningOut({super.key});
 
@@ -34,6 +36,10 @@ class AddDiningOut extends HookWidget {
       );
       textFieldController.clear();
       textFieldValue.value = 0;
+    }
+
+    Future<void> addDataInt() async {
+      await savedeposit(context, 1, 'addhistory');
     }
 
     return Container(
