@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   late ShowSave showsave;
   String date = ''; // 初期値を空文字に設定
   String target = ''; // targetの初期値も設定
+
   int TargetPrice = 0;
   @override
   void initState() {
@@ -39,10 +40,12 @@ class _HomePageState extends State<HomePage> {
           target = showsave.loadedData[0]['target'] ?? '不明な目標';
           TargetPrice = showsave.loadedData[0]['target_price'];
         });
+      } else {
+        // 目標データがない場合、ダイアログを表示
+        _showNoTargetDialog();
       }
     });
   }
-
   void loadingDeposit() async {
     deposit = Deposit();
     await deposit.dataLoading("standard");
@@ -76,6 +79,29 @@ class _HomePageState extends State<HomePage> {
       }
       savedeposit(context, loadIntTarget, 'difference');
     });
+  void _showNoTargetDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('目標達成おめでとう！'),
+          content: const Text('次の目標を決めてがんばろう'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context, // 必ず context を渡す
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const TargetInput()), // TargetInput 画面への遷移
+                );
+              },
+              child: const Text('次へ'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
