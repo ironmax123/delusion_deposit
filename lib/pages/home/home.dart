@@ -3,6 +3,8 @@ import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
 import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
 import 'package:delusion_deposit/pages/target-input/target_input.dart';
+import 'package:delusion_deposit/pages/home/add_diningout.dart';
+import 'package:delusion_deposit/pages/home/show-save.dart';
 import 'package:flutter/material.dart';
 import 'deposit/save_deposit.dart';
 
@@ -19,10 +21,27 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> savedDataDeposit = [];
   List<Map<String, dynamic>> savedDataTarget = [];
   int loadInt = 0, loadIntDeposit = 0, loadIntTarget = 0;
+  late ShowSave showsave;
+  String date = ''; // 初期値を空文字に設定
+  String target = ''; // targetの初期値も設定
+  int TargetPrice = 0;
   @override
   void initState() {
     super.initState();
     loadingDeposit();
+    showsave = ShowSave();
+    // データの読み込みを開始
+    showsave.loadSavedData().then((_) {
+      // データが読み込まれたら、UIを更新
+      if (showsave.loadedData.isNotEmpty) {
+        setState(() {
+          // 最初のアイテムのtarget_dateを取得
+          date = showsave.loadedData[0]['target_date'] ?? '不明な日付';
+          target = showsave.loadedData[0]['target'] ?? '不明な目標';
+          TargetPrice = showsave.loadedData[0]['target_price'];
+        });
+      }
+    });
   }
 
   void loadingDeposit() async {
@@ -43,7 +62,7 @@ class _HomePageState extends State<HomePage> {
       double result = loadInt / 3;
       loadInt = result.round();
       //保存された目標との差額
-      print('${deposit.loadIntTarget}円');
+      debugPrint('${deposit.loadIntTarget}円');
       loadIntTarget = deposit.loadIntTarget;
     });
   }
@@ -84,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                   child: ColoredBox(
                     color: const Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
-                      height: 160,
+                      height: 128,
                       width: 400,
                       child: Column(
                         children: [
@@ -108,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                               //'${deposit.loadedData}円',
                               style: const TextStyle(
                                 color: Color(0xFFFF8C00),
-                                fontSize: 50,
+                                fontSize: 32,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -123,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                     'あと',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 30,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -131,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                                     '$loadIntTarget円',
                                     style: const TextStyle(
                                       color: Color(0xFF2F5C8A),
-                                      fontSize: 30,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -149,14 +168,17 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: const ColoredBox(
-                    color: Color.fromARGB(255, 176, 224, 230),
+                  child: ColoredBox(
+                    color: const Color.fromARGB(255, 176, 224, 230),
                     child: SizedBox(
                       height: 160,
                       width: 400,
                       child: Column(
                         children: [
-                          Text(
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
                             '目標',
                             style: TextStyle(
                               color: Colors.black,
@@ -165,21 +187,21 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 16),
+                            padding: const EdgeInsets.only(left: 16),
                             child: Text(
-                              '11/2までに沖縄の別荘',
-                              style: TextStyle(
+                              '$dateまでに$target',
+                              style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 30,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Text(
-                            '1000000000円',
-                            style: TextStyle(
+                            '$TargetPrice円',
+                            style: const TextStyle(
                               color: Color(0xFF2F5C8A),
-                              fontSize: 50,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
