@@ -108,6 +108,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void nowDate() {
+    DateTime now = DateTime.now();
+    int weekday = now.weekday;
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
