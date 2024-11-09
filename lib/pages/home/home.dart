@@ -1,6 +1,7 @@
 import 'package:delusion_deposit/mock_data/mock_deposit.dart';
 import 'package:delusion_deposit/pages/dining-out_list/duingout.dart';
 import 'package:delusion_deposit/pages/home/BottomSheetWidget/add_diningout.dart';
+import 'package:delusion_deposit/pages/home/NowWeekday.dart';
 import 'package:delusion_deposit/pages/home/deposit/deposit.dart';
 import 'package:delusion_deposit/pages/target-input/target_input.dart';
 import 'package:delusion_deposit/pages/home/show-save.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Nowweekday dayInt = Nowweekday();
   late Deposit deposit;
   List<Map<String, dynamic>> savedData = [];
   List<Map<String, dynamic>> savedDataDeposit = [];
@@ -40,15 +42,37 @@ class _HomePageState extends State<HomePage> {
           target = showsave.loadedData[0]['target'] ?? '不明な目標';
           TargetPrice = showsave.loadedData[0]['target_price'];
         });
-      } else {
-        // 目標データがない場合、ダイアログを表示
-        _showNoTargetDialog();
       }
     });
   }
 
-<<<<<<< HEAD
+  void _showNoTargetDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('目標達成おめでとう！'),
+          content: const Text('次の目標を決めてがんばろう'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const TargetInput()), // TargetInput 画面への遷移
+                );
+              },
+              child: const Text('次へ'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void loadingDeposit() async {
+    dayInt.nowDate();
     deposit = Deposit();
     await deposit.dataLoading("standard");
     savedData = deposit.standardData;
@@ -78,34 +102,10 @@ class _HomePageState extends State<HomePage> {
       loadIntTarget -= loadIntDeposit;
       if (loadIntTarget <= 0) {
         loadIntTarget = 0;
+        _showNoTargetDialog();
       }
       savedeposit(context, loadIntTarget, 'difference');
     });
-=======
-  void _showNoTargetDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('目標達成おめでとう！'),
-          content: const Text('次の目標を決めてがんばろう'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context, // 必ず context を渡す
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const TargetInput()), // TargetInput 画面への遷移
-                );
-              },
-              child: const Text('次へ'),
-            ),
-          ],
-        );
-      },
-    );
->>>>>>> main
   }
 
   @override
@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> {
           ),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 176, 224, 230),
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Column(
@@ -197,43 +198,40 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(30),
                   child: ColoredBox(
                     color: const Color.fromARGB(255, 176, 224, 230),
-                    child: SizedBox(
-                      height: 160,
-                      width: 400,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 8,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center, // 左寄せ
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Text(
+                          '目標',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const Text(
-                            '目標',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Text(
-                              '$dateまでに\n$target',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '$TargetPrice円',
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            '$dateまでに\n$target',
                             style: const TextStyle(
-                              color: Color(0xFF2F5C8A),
-                              fontSize: 30,
+                              color: Colors.black,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          '$TargetPrice円',
+                          style: const TextStyle(
+                            color: Color(0xFF2F5C8A),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

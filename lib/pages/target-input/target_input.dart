@@ -78,6 +78,7 @@ class TargetInput extends HookWidget {
       appBar: AppBar(
         title: const Text('目標入力'),
         backgroundColor: const Color(0xFFB0E0E6),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -141,7 +142,6 @@ class TargetInput extends HookWidget {
               await deleteAllData();
               await saveTarget();
               Navigator.push(
-                // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(
                   builder: (context) => const StandardInput(),

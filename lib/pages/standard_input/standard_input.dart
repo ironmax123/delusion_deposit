@@ -78,7 +78,8 @@ class StandardInput extends HookWidget {
             onPressed: () async {
               await deleteAllData();
               await saveStandard();
-              Navigator.push(
+
+              Navigator.pushReplacement(
                 // ignore: use_build_context_synchronously
                 context,
                 MaterialPageRoute(
