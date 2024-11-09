@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   late ShowSave showsave;
   String date = ''; // 初期値を空文字に設定
   String target = ''; // targetの初期値も設定
-  // ignore: non_constant_identifier_names
+
   int TargetPrice = 0;
 
   @override
