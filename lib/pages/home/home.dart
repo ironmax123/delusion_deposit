@@ -137,8 +137,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void asdfds() {}
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -292,21 +290,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              ElevatedButton(
+              /*ElevatedButton(
                   onPressed: () {
                     addDeposit();
                   },
-                  child: const Text('追加')),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TargetInput(),
-                      ),
-                    );
-                  },
-                  child: const Text('目標入力')),
+                  child: const Text('追加')),*/
             ],
           ),
         ),
