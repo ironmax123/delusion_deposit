@@ -52,10 +52,10 @@ class Deposit {
   }
 
   int get loadIntTarget {
-    if (depositData.isNotEmpty && targetData[0]['difference_price'] is int) {
+    if (targetData.isNotEmpty && targetData[0]['difference_price'] is int) {
       return targetData[0]['difference_price'];
     }
-    return targetData[0]['difference_price'];
+    return 10000;
   }
 }
 

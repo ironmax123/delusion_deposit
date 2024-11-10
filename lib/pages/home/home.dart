@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
       loadIntTarget -= loadIntDeposit * currentPrice;
       if (loadIntTarget <= 0) {
         loadIntTarget = 0;
-        _showNoTargetDialog();
+        // _showNoTargetDialog();
       }
       savedeposit(context, loadIntTarget, 'difference');
     });
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
       addDeposit();
       _hasRunToday = true;
       await saveRunStatus(true); // フラグを true にして保存
-      removeAddHistoryPrice();
+      //removeAddHistoryPrice();
     }
 
     // 月曜日から土曜日の場合はフラグをリセット
@@ -294,11 +294,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              /*ElevatedButton(
+              ElevatedButton(
                   onPressed: () {
                     addDeposit();
                   },
-                  child: const Text('追加')),*/
+                  child: const Text('追加')),
             ],
           ),
         ),
