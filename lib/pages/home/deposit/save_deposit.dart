@@ -31,5 +31,11 @@ Future<void> savedeposit(
 Future<void> deleteData(targetStr) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.remove('${targetStr}_data');
-  debugPrint('全データが削除されました');
+  debugPrint('データが削除されましたsss');
+}
+
+Future<void> removeAddHistoryPrice() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('addhistory_price');
+  debugPrint('データが削除されました');
 }

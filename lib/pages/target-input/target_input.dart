@@ -71,7 +71,7 @@ class TargetInput extends HookWidget {
       await prefs.remove('saved_out');
       await prefs.remove('deposit_data');
       await prefs.remove('difference_data');
-      debugPrint('全データが削除されました');
+      debugPrint('全データが削除されました!!');
     }
 
     return Scaffold(

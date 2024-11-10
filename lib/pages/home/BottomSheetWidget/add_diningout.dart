@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../deposit/save_deposit.dart';
-
 class AddDiningOut extends HookWidget {
   const AddDiningOut({super.key});
 
@@ -39,7 +37,15 @@ class AddDiningOut extends HookWidget {
     }
 
     Future<void> addDataInt() async {
-      await savedeposit(context, 1, 'addhistory');
+      Future<void> incrementAddHistoryPrice() async {
+        final prefs = await SharedPreferences.getInstance();
+
+        int currentPrice = prefs.getInt('addhistory_price') ?? 0;
+        currentPrice += 1;
+        await prefs.setInt('addhistory_price', currentPrice);
+
+        print('Updated addhistory_price: $currentPrice');
+      }
     }
 
     return Container(
