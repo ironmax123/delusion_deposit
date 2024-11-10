@@ -147,15 +147,30 @@ class _HomePageState extends State<HomePage> {
           title: const Text(
             '妄想貯金箱',
             style: TextStyle(
-              color: Colors.white,
+              color: Color(0xFF2F5C8A),
             ),
           ),
-          centerTitle: true,
+          centerTitle: true, // タイトルを中央に配置
           backgroundColor: const Color.fromARGB(255, 176, 224, 230),
+          actions: [
+            // アイコンボタンを右端に配置
+            IconButton(
+              icon: const Icon(Icons.list),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DuingOut(),
+                  ),
+                );
+              },
+            ),
+          ],
           automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
@@ -269,32 +284,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              ElevatedButton(onPressed: () {}, child: const Text('追加')),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  backgroundColor: const Color.fromARGB(255, 176, 224, 230),
-                  foregroundColor: Colors.white,
-                  fixedSize: const Size(240, 80),
-                ),
-                onPressed: () {
-                  mockStandard();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DuingOut(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  '外食履歴を見る',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              /*ElevatedButton(
+
                   onPressed: () {
                     addDeposit();
                   },
